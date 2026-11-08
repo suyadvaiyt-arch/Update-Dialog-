@@ -172,7 +172,11 @@ public class UpdateDialog {
                 w.setAttributes(lp);
             } catch (Throwable t) {}
             DisplayMetrics m = a.getResources().getDisplayMetrics();
-            int width = (int) (m.widthPixels * 0.90f);
+            // json.txt er "size" diye dialog er size control hobe (0.5 - 1.0)
+            float sz = (float) j.optDouble("size", 0.90);
+            if (sz < 0.5f) sz = 0.5f;
+            if (sz > 1.0f) sz = 1.0f;
+            int width = (int) (m.widthPixels * sz);
             w.setLayout(width, width * 4 / 3);   // 3:4 ratio
             d.show();
         } catch (Exception e) {}
